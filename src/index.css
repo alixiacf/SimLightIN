@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom animations */
+@keyframes electricity-pulse {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+.animate-electricity {
+  animation: electricity-pulse 1.5s infinite;
+}
+
+/* Grid layout para pantalla completa */
+.grid-areas-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: auto min-content 1fr;
+  grid-template-areas: 
+    "header header header"
+    "generators control consumers" 
+    "generators control event-image";
+  height: 100vh;
+  width: 100vw;
+  gap: 0.3rem;
+  overflow: hidden;
+  align-items: start;
+}
+
+.grid-in-header {
+  grid-area: header;
+}
+
+.grid-in-generators {
+  grid-area: generators;
+  border-right: 1px solid #e5e7eb;
+}
+
+.grid-in-control {
+  grid-area: control;
+}
+
+.grid-in-consumers {
+  grid-area: consumers;
+  border-left: 1px solid #e5e7eb;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.grid-in-event-image {
+  grid-area: event-image;
+  border-left: 1px solid #e5e7eb;
+  min-height: 0;
+  max-height: 250px;
+}
+
+/* Optimizar para pantallas más pequeñas */
+@media (max-width: 1024px) {
+  .grid-areas-layout {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas: 
+      "header header"
+      "generators consumers"
+      "control event-image";
+  }
+}
+
+/* Limitar altura máxima del panel central */
+ 
+
+/* General styles */
+ body {
+  font-family: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+ 
+  font-size: clamp(0.85rem, 1vw, 1rem); /* Más compacto y responsivo */
+}
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* Make the text and UI child-friendly with slightly rounded corners and friendly fonts */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Nunito', 'Comic Sans MS', 'Segoe UI', system-ui, sans-serif;
+  font-size: 1em;
+  margin: 0.2em 0;
+}
+
+/* Compactar cards y botones */
+.card, .shadow-md, .rounded-lg, .p-3 {
+  padding: 0.6rem !important;
+  border-radius: 0.6rem !important;
+}
+button, .btn {
+  padding-top: 0.4rem !important;
+  padding-bottom: 0.4rem !important;
+  font-size: 0.97em !important;
+  min-height: 2.2em;
+}
+
+/* Limitar altura de event-image y event-card */
+.grid-in-event-image > div, .grid-in-event-image .card, .grid-in-event-image .shadow-md {
+  max-height: 120px;
+  min-height: 60px;
+  overflow: auto;
+}
+
+/* Limitar altura de las cards en columnas laterales */
+.grid-in-generators .card, .grid-in-generators .shadow-md, .grid-in-consumers .card, .grid-in-consumers .shadow-md {
+  max-height: 180px;
+  min-height: 90px;
+  overflow: auto;
+}
+
+/* Ajustar scroll para que nunca reborde */
+.grid-in-generators, .grid-in-consumers, .grid-in-control, .grid-in-event-image {
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+/* Quitar margenes innecesarios de los paneles internos */
+.grid-in-generators > div, .grid-in-consumers > div {
+  margin-bottom: 0.3rem !important;
+}
